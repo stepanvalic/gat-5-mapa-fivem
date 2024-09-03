@@ -1,0 +1,34 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTA 5 Map</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+</head>
+<body>
+    <div id="map"></div>
+    <div id="control-panel">
+        <h2>Přidat nový bod</h2>
+        <button id="confirm-button">✔️ Potvrdit bod</button>
+        <input type="text" id="point-name" placeholder="Název bodu">
+        <textarea id="point-description" placeholder="Popis bodu"></textarea>
+        <div id="image-gallery"></div>
+        <input type="text" id="image-url" placeholder="URL obrázku">
+        <button id="add-image">Přidat obrázek</button>
+
+        <h2>Detaily bodu</h2>
+        <div id="point-details"></div>
+
+        <h2>Google Tabulky</h2>
+        <input type="text" id="spreadsheet-url" placeholder="Google Tabulky URL">
+        <button id="save-to-google">Uložit do Google Tabulek</button>
+        <button id="load-from-google">Načíst z Google Tabulek</button>
+    </div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="map.js"></script>
+</body>
+</html>

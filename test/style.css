@@ -1,0 +1,49 @@
+/* style.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    font-family: Arial, sans-serif;
+}
+
+#map {
+    height: 100%;
+    width: 70%;
+}
+
+#control-panel {
+    width: 30%;
+    height: 100%;
+    background: #f4f4f4;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    overflow-y: auto;
+}
+
+#control-panel h2 {
+    margin-top: 0;
+}
+
+#control-panel button, 
+#control-panel input, 
+#control-panel textarea {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#image-gallery img {
+    width: 100%;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+#point-details {
+    margin-top: 20px;
+}
+
+#point-details img {
+    width: 100%;
+    margin-bottom: 10px;
+}
