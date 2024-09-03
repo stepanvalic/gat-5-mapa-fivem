@@ -1,6 +1,4 @@
-// map.js
-
-// Firebase konfigurace (nahraď ji svou vlastní)
+// Firebase konfigurace
 const firebaseConfig = {
     apiKey: "AIzaSyBqVqsxLa5Kt_5QVGJuaXGkNDZ8eW4mX3o",
     authDomain: "mapa-addict.firebaseapp.com",
@@ -8,7 +6,8 @@ const firebaseConfig = {
     projectId: "mapa-addict",
     storageBucket: "mapa-addict.appspot.com",
     messagingSenderId: "308245419786",
-    appId: "1:308245419786:web:d96951b2dd602009328cf3"
+    appId: "1:308245419786:web:d96951b2dd602009328cf3",
+    measurementId: "G-CFPD6GZNDF"
   };
   
   // Inicializace Firebase
@@ -84,6 +83,9 @@ const firebaseConfig = {
   
           // Uložení dat do Firebase
           saveToFirebase(name, description, pendingMarker.getLatLng(), images);
+  
+          // Odeslání dat na Discord webhook
+          sendToDiscord(name, description, pendingMarker.getLatLng(), images);
   
           // Vymazání vstupů
           resetForm();
@@ -173,22 +175,23 @@ const firebaseConfig = {
       });
   }
   
+  // Funkce pro odeslání dat na Discord webhook
+  function sendToDiscord(name, description, latLng, images) {
+      const discordWebhookUrl = 'https://discord.com/api/webhooks/1280611219644092507/5UntnltFbMqZvcVfiNEy9FaT5voSMagP1HtDAayAm9xmnxoCOYo_O8SqZCh7OQgW2lPG'; 
+  
+      const data = {
+          content: `**Nový bod přidán!**\n\n**Název:** ${name}\n**Popis:** ${description}\n**Pozice:** ${latLng.lat}, ${latLng.lng}\n**Obrázky:**\n${images.join('\n')}`
+      };
+  
+      axios.post(discordWebhookUrl, data)
+          .then(response => {
+              console.log('Data odeslána na Discord:', response);
+          })
+          .catch(error => {
+              console.error('Chyba při odesílání na Discord:', error);
+          });
+  }
+  
   // Načtení dat z Firebase při načtení stránky
   loadFromFirebase();
   
-  // Funkce pro odeslání dat na Discord webhook
-function sendToDiscord(name, description, latLng, images) {
-    const discordWebhookUrl = 'https://discord.com/api/webhooks/1280611219644092507/5UntnltFbMqZvcVfiNEy9FaT5voSMagP1HtDAayAm9xmnxoCOYo_O8SqZCh7OQgW2lPG'; // Nahraď skutečným webhook URL
-
-    const data = {
-        content: `**Nový bod přidán!**\n\n**Název:** ${name}\n**Popis:** ${description}\n**Pozice:** ${latLng.lat}, ${latLng.lng}\n**Obrázky:**\n${images.join('\n')}`
-    };
-
-    axios.post(discordWebhookUrl, data)
-        .then(response => {
-            console.log('Data odeslána na Discord:', response);
-        })
-        .catch(error => {
-            console.error('Chyba při odesílání na Discord:', error);
-        });
-}
