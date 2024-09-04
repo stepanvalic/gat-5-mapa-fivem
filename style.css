@@ -79,3 +79,11 @@ body, html {
     margin-bottom: 10px;
     cursor: pointer;
 }
+
+#admin-panel {
+    margin-top: 20px;
+}
+
+#admin-panel h2 {
+    color: #ff5555;
+}
