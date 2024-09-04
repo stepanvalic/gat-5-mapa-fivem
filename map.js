@@ -237,18 +237,18 @@ deletePointButton.addEventListener('click', function() {
 });
 
 // Funkce pro smazání všech bodů
-deleteAllPointsButton.addEventListener('click', function() {
-    const password = deletePasswordInput.value;
-    if (password === '666') {
-        if (confirm('Opravdu chcete smazat všechny body? Tato akce je nevratná.')) {
-            database.ref('/points').remove();
-            console.log('Všechny body byly smazány z databáze.');
-            location.reload(); // Aktualizace stránky pro obnovení stavu mapy
-        }
-    } else {
-        alert('Nesprávné heslo.');
-    }
-});
+// deleteAllPointsButton.addEventListener('click', function() {
+//     const password = deletePasswordInput.value;
+//     if (password === '666') {
+//         if (confirm('Opravdu chcete smazat všechny body? Tato akce je nevratná.')) {
+//             database.ref('/points').remove();
+//             console.log('Všechny body byly smazány z databáze.');
+//             location.reload(); // Aktualizace stránky pro obnovení stavu mapy
+//         }
+//     } else {
+//         alert('Nesprávné heslo.');
+//     }
+// });
 
 // Načtení dat z Firebase při načtení stránky
 loadFromFirebase();
