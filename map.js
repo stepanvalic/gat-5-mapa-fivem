@@ -23,8 +23,8 @@ const bounds = [[0, 0], [2000, 2000]]; // Příklad: (0, 0) je levý horní roh,
 // Inicializace mapy s rozsahem mapy
 const map = L.map('map', {
     crs: L.CRS.Simple, // Jednoduchý CRS pro obrázky
-    minZoom: -2,
-    maxZoom: 2, // Umožnění zoomovat ven i dovnitř
+    minZoom: 0,
+    maxZoom: 3.5, // Umožnění zoomovat ven i dovnitř
     zoomSnap: 0.25 // Plynulé přiblížení
 }).fitBounds(bounds);
 
