@@ -32,14 +32,42 @@ body, html {
     margin-bottom: 10px;
 }
 
+#point-type {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#point-type label {
+    cursor: pointer;
+}
+
+#point-type img {
+    width: 50px;
+    height: 50px;
+    border: 2px solid transparent;
+}
+
+#point-type input:checked + img {
+    border-color: #007bff;
+}
+
+.drop-area {
+    border: 2px dashed #ccc;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.drop-area.drag-over {
+    border-color: #007bff;
+}
+
 #image-gallery img {
     width: 100%;
     margin-bottom: 10px;
     cursor: pointer;
-}
-
-#point-details {
-    margin-top: 20px;
 }
 
 #point-details img {

@@ -11,16 +11,39 @@
     <div id="map"></div>
     <div id="control-panel">
         <h2>Přidat nový bod</h2>
+        
+        <!-- Předchystané SVG ikony pro typ bodu -->
+        <div id="point-type">
+            <label>
+                <input type="radio" name="pointType" value="type1" checked>
+                <img src="icons/type1.svg" alt="Type 1">
+            </label>
+            <label>
+                <input type="radio" name="pointType" value="type2">
+                <img src="icons/type2.svg" alt="Type 2">
+            </label>
+            <label>
+                <input type="radio" name="pointType" value="type3">
+                <img src="icons/type3.svg" alt="Type 3">
+            </label>
+            <label>
+                <input type="radio" name="pointType" value="type4">
+                <img src="icons/type4.svg" alt="Type 4">
+            </label>
+        </div>
+
         <button id="confirm-button">✔️ Potvrdit bod</button>
         <input type="text" id="point-name" placeholder="Název bodu">
         <textarea id="point-description" placeholder="Popis bodu"></textarea>
-        <div id="image-gallery"></div>
-        <input type="text" id="image-url" placeholder="URL obrázku">
+        <div id="image-gallery" class="drop-area">Přetáhněte obrázky sem nebo je vložte (Ctrl+V)</div>
+        <input type="file" id="upload-image" accept="image/*">
         <button id="add-image">Přidat obrázek</button>
 
         <h2>Detaily bodu</h2>
         <div id="point-details"></div>
+        <button id="delete-point">❌ Smazat bod</button>
     </div>
+
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
