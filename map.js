@@ -118,7 +118,8 @@ const firebaseConfig = {
       img.src = imageUrl;
       img.addEventListener('click', function() {
           if (confirm('Opravdu chcete tento obrázek smazat?')) {
-              img.remove(); // Odstranění obrázku při kliknutí
+              removeImageFromFirebase(currentPointKey, imageUrl); // Odstranění obrázku z Firebase
+              img.remove(); // Odstranění obrázku z UI
           }
       });
       imageGallery.appendChild(img);
@@ -131,6 +132,12 @@ const firebaseConfig = {
       images.forEach(img => {
           const imgElem = document.createElement('img');
           imgElem.src = img;
+          imgElem.addEventListener('click', function() {
+              if (confirm('Opravdu chcete tento obrázek smazat?')) {
+                  removeImageFromFirebase(currentPointKey, img); // Odstranění obrázku z Firebase
+                  imgElem.remove(); // Odstranění obrázku z UI
+              }
+          });
           pointDetails.appendChild(imgElem);
       });
   }
@@ -158,6 +165,16 @@ const firebaseConfig = {
   
       database.ref().update(updates);
       return newPointKey;
+  }
+  
+  // Funkce pro odstranění obrázku z Firebase
+  function removeImageFromFirebase(pointKey, imageUrl) {
+      database.ref('/points/' + pointKey).once('value').then(snapshot => {
+          const pointData = snapshot.val();
+          const updatedImages = pointData.images.filter(img => img !== imageUrl);
+  
+          database.ref('/points/' + pointKey).update({ images: updatedImages });
+      });
   }
   
   // Funkce pro načtení dat z Firebase
@@ -209,60 +226,6 @@ const firebaseConfig = {
       if (currentPointKey && confirm('Opravdu chcete tento bod smazat?')) {
           database.ref('/points/' + currentPointKey).remove();
           location.reload(); // Aktualizace stránky pro obnovení stavu mapy
-      }
-  });
-  
-  // Funkce pro zpracování obrázků vložením (Ctrl+V) nebo přetažením
-  function handleImageUpload(file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-          const imageUrl = e.target.result;
-          axios.post(discordWebhookUrl, {
-              file: imageUrl
-          }).then(response => {
-              const uploadedImageUrl = response.data.attachments[0].url;
-              addImageToGallery(uploadedImageUrl);
-          }).catch(error => {
-              console.error('Chyba při odesílání obrázku na Discord:', error);
-          });
-      };
-      reader.readAsDataURL(file);
-  }
-  
-  // Zpracování vložení obrázku (Ctrl+V)
-  document.addEventListener('paste', function(e) {
-      const items = (e.clipboardData || e.originalEvent.clipboardData).items;
-      for (const item of items) {
-          if (item.kind === 'file') {
-              handleImageUpload(item.getAsFile());
-          }
-      }
-  });
-  
-  // Zpracování přetažení obrázku
-  imageGallery.addEventListener('dragover', function(e) {
-      e.preventDefault();
-      imageGallery.classList.add('drag-over');
-  });
-  
-  imageGallery.addEventListener('dragleave', function() {
-      imageGallery.classList.remove('drag-over');
-  });
-  
-  imageGallery.addEventListener('drop', function(e) {
-      e.preventDefault();
-      imageGallery.classList.remove('drag-over');
-      const files = e.dataTransfer.files;
-      for (const file of files) {
-          handleImageUpload(file);
-      }
-  });
-  
-  // Zpracování nahrání obrázku pomocí inputu
-  uploadImageInput.addEventListener('change', function() {
-      const files = uploadImageInput.files;
-      for (const file of files) {
-          handleImageUpload(file);
       }
   });
   
