@@ -42,6 +42,8 @@ const firebaseConfig = {
   const imageGallery = document.getElementById('image-gallery');
   const pointDetails = document.getElementById('point-details');
   const deletePointButton = document.getElementById('delete-point');
+  
+  // Skryté pole pro zadání hesla k vymazání všech bodů
   const adminPanel = document.getElementById('admin-panel');
   const adminPasswordInput = document.getElementById('admin-password');
   const deleteAllPointsButton = document.getElementById('delete-all-points');
@@ -105,7 +107,7 @@ const firebaseConfig = {
       return content;
   }
   
-  // Přidání obrázku do galerie
+  // Přidání obrázku do galerie přes Discord URL
   addImageButton.addEventListener('click', function() {
       const imageUrl = imageUrlInput.value.trim();
       if (imageUrl !== '') {
@@ -136,7 +138,7 @@ const firebaseConfig = {
           imgElem.src = img;
           imgElem.addEventListener('click', function() {
               if (confirm('Opravdu chcete tento obrázek smazat?')) {
-                  removeImageFromFirebase(currentPointKey, img); // Odstranění obrázku z Firebase
+                  removeImageFromFirebase(currentPointKey, imgElem.src); // Odstranění obrázku z Firebase
                   imgElem.remove(); // Odstranění obrázku z UI
               }
           });
