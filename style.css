@@ -87,3 +87,9 @@ body, html {
 #admin-panel h2 {
     color: #ff5555;
 }
+
+#filter select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}

@@ -15,14 +15,14 @@ const firebaseConfig = {
   const database = firebase.database();
   
   // Rozsah obrázku mapy (změň souřadnice podle rozměrů mapy)
-  const bounds = [[0, 0], [2000, 2000]]; // Příklad: (0, 0) je levý horní roh, (2000, 2000) je pravý dolní roh
+  const bounds = [[0, 0], [8192, 8192]];
   
   // Inicializace mapy s rozsahem mapy
   const map = L.map('map', {
-      crs: L.CRS.Simple, // Jednoduchý CRS pro obrázky
+      crs: L.CRS.Simple,
       minZoom: -2,
-      maxZoom: 2, // Umožnění zoomovat ven i dovnitř
-      zoomSnap: 0.25 // Plynulé přiblížení
+      maxZoom: 2,
+      zoomSnap: 0.25
   }).fitBounds(bounds);
   
   const imageUrl = 'images/mapa.png';
@@ -33,7 +33,7 @@ const firebaseConfig = {
   let pendingMarker = null;
   let currentPointKey = null;
   
-  // Elementy DOM pro pravý panel
+  // Elementy DOM
   const confirmButton = document.getElementById('confirm-button');
   const pointNameInput = document.getElementById('point-name');
   const pointDescriptionInput = document.getElementById('point-description');
@@ -42,8 +42,7 @@ const firebaseConfig = {
   const imageGallery = document.getElementById('image-gallery');
   const pointDetails = document.getElementById('point-details');
   const deletePointButton = document.getElementById('delete-point');
-  
-  // Skryté pole pro zadání hesla k vymazání všech bodů
+  const filterSelect = document.getElementById('filter-select');
   const adminPanel = document.getElementById('admin-panel');
   const adminPasswordInput = document.getElementById('admin-password');
   const deleteAllPointsButton = document.getElementById('delete-all-points');
@@ -256,4 +255,16 @@ const firebaseConfig = {
   
   // Načtení dat z Firebase při načtení stránky
   loadFromFirebase();
+  
+  // Filtrace bodů
+  filterSelect.addEventListener('change', function() {
+      const selectedType = filterSelect.value;
+      markers.forEach(marker => {
+          if (selectedType === 'all' || marker.pointType === selectedType) {
+              marker.marker.addTo(map);
+          } else {
+              map.removeLayer(marker.marker);
+          }
+      });
+  });
   

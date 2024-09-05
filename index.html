@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GTA 5 Map</title>
+    <title>Interaktivní Mapa</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
 </head>
 <body>
     <div id="map"></div>
+
     <div id="control-panel">
         <h2>Přidat nový bod</h2>
-        
-        <!-- Předchystané SVG ikony pro typ bodu -->
+
+        <input type="text" id="point-name" placeholder="Název bodu">
+        <textarea id="point-description" placeholder="Popis bodu"></textarea>
+        <input type="text" id="image-url" placeholder="URL obrázku z Discordu">
+        <button id="add-image">Přidat obrázek</button>
+        <div id="image-gallery"></div>
+
+        <h2>Typ bodu</h2>
         <div id="point-type">
             <label>
                 <input type="radio" name="pointType" value="type1" checked>
@@ -33,16 +40,22 @@
         </div>
 
         <button id="confirm-button">✔️ Potvrdit bod</button>
-        <input type="text" id="point-name" placeholder="Název bodu">
-        <textarea id="point-description" placeholder="Popis bodu"></textarea>
-        <input type="text" id="image-url" placeholder="URL obrázku z Discordu">
-        <button id="add-image">Přidat obrázek</button>
+        <div id="filter">
+            <h2>Filtr bodů</h2>
+            <select id="filter-select">
+                <option value="all">Všechny</option>
+                <option value="type1">Typ 1</option>
+                <option value="type2">Typ 2</option>
+                <option value="type3">Typ 3</option>
+                <option value="type4">Typ 4</option>
+            </select>
+        </div>
 
         <h2>Detaily bodu</h2>
         <div id="point-details"></div>
         <button id="delete-point">❌ Smazat bod</button>
 
-        <!-- Skryté pole pro zadání hesla k vymazání všech bodů -->
+        <!-- Admin panel pro mazání všech bodů -->
         <div id="admin-panel" style="display:none;">
             <h2>Admin Panel</h2>
             <input type="password" id="admin-password" placeholder="Zadejte heslo">
@@ -53,7 +66,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="map.js"></script>
 </body>
 </html>
